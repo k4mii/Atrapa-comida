@@ -1,4 +1,3 @@
-
 package autonoma.atrapacomida.models;
 
 import java.awt.Graphics;
@@ -15,22 +14,28 @@ import javax.imageio.ImageIO;
  * @version 1.0.0
  * @since 2025-05-10
  */
-
 public class GestorSprites {
-    // Variables estáticas para almacenar las imágenes cargadas
-    public static BufferedImage comida;
-    public static BufferedImage veneno;
+
     /**
-     * Método que carga todos los sprites del juego.
-     * Este método se debe llamar una vez al iniciar el juego.
+     * Imagen de la comida, utilizada por los elementos de tipo "comida".
+     */
+    public static BufferedImage eat;
+    /**
+     * Imagen del veneno, utilizada por los elementos de tipo "veneno".
+     */
+    public static BufferedImage pocion;
+
+    /**
+     * Método que carga todos los sprites del juego. Este método se debe llamar
+     * una vez al iniciar el juego.
      */
     public static void cargarSprites() {
         try {
             // Cargamos la imagen de comida (hamburguesa)
-            comida = cargarImagen("/autonoma/atrapacomida/images/hamburguer.png");
+            eat = cargarImagen("/autonoma/atrapacomida/images/hamburguer.png");
 
             // Cargamos la imagen de veneno (cigarrillo)
-            veneno = cargarImagen("/autonoma/atrapacomida/images/pocion.png");
+            pocion = cargarImagen("/autonoma/atrapacomida/images/pocion.png");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -38,8 +43,9 @@ public class GestorSprites {
     }
 
     /**
-     * Método que carga una imagen desde una ruta y la convierte en un BufferedImage con transparencia.
-     * Implementa el fragmento de código del tutorial de Java 2D Graphics.
+     * Método que carga una imagen desde una ruta y la convierte en un
+     * BufferedImage con transparencia. Implementa el fragmento de código del
+     * tutorial de Java 2D Graphics.
      *
      * @param ruta La ruta del archivo de imagen.
      * @return BufferedImage con la imagen cargada.
