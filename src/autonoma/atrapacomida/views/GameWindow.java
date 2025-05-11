@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package autonoma.atrapacomida.views;
 
+import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
 /**
@@ -18,11 +15,22 @@ public class GameWindow extends javax.swing.JFrame {
     public GameWindow() {
         setUndecorated(true);
         initComponents();
+        this.setSize(500, 500);
         this.setLocationRelativeTo(null);
         try {
             this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/atrapacomida/images/hamburguer")).getImage());
         } catch (Exception e) {
             System.out.println("imagen no encontrada");
+        }
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        for (ElementoCaida comida : comidas) {
+            comida.dibujar(g);
+        }
+        for (ElementoCaida veneno : venenos) {
+            veneno.dibujar(g);
         }
     }
 
