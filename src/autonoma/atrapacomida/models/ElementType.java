@@ -48,17 +48,17 @@ public abstract class ElementType extends SpriteMobile {
             }
         } while (overlaps);
 
-        ElementType e = null;
+        ElementType m = null;
 
         if (type.equals(Food.class)) {
-            e = new Food(x, y, ElementType.WIDTH, ElementType.HEIGHT);
+            m = new Food(x, y, ElementType.WIDTH, ElementType.HEIGHT);
         } else if (type.equals(Posion.class)) {
-            e = new Posion(x, y, ElementType.WIDTH, ElementType.HEIGHT);
+            m = new Posion(x, y, ElementType.WIDTH, ElementType.HEIGHT);
         } else {
             System.out.println("ERROR: ElementType.create unknown type of flea");
         }
 
-        return e;
+        return m;
     }
 
     /**

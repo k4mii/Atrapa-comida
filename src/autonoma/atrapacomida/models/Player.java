@@ -1,13 +1,43 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package autonoma.atrapacomida.models;
 
+
+
 /**
- *
- * @author Kamii
+ * @author Maria Camila Prada Cortes
+ * @version 1.0.0
+ * @since 2025-05-11
  */
 public class Player {
-    
+
+    /**
+     * Atributos
+     */
+    /**
+     * Atributo del puntaje que tendra el jugador
+     */
+    private int puntaje;
+
+    /**
+     * Constructor
+     */
+    public Player(int x, int y, int height, int width) {
+        this.puntaje = 0;
+    }
+
+    /**
+     * Metodos de acceso
+     */
+    public int getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(int puntaje) {
+        this.puntaje = puntaje;
+    }
+
+    public void aumentarPuntaje(int puntaje) {
+        this.puntaje += puntaje;
+    }
+
+
 }

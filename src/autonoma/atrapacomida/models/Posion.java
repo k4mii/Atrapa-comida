@@ -7,10 +7,10 @@ import javax.swing.ImageIcon;
 /**
  *
  * @author Maria Camila Prada Cortes
- * @version  1.0.0
+ * @version 1.0.0
  * @since 2025-05-11
  */
-public class Posion extends ElementType{
+public class Posion extends ElementType {
 
     private Image posionImage;
 
@@ -26,10 +26,8 @@ public class Posion extends ElementType{
 
     @Override
     public void delete(FoodField foodField) {
-        foodField.eliminarPulga(this);
-        foodField.getPlayer().setPuntaje(
-                foodField.getPlayer().getPuntaje() + 1
-        );
+        foodField.getPlayer().aumentarPuntaje(-2);
+        foodField.eliminarElement(this);
     }
 
     @Override

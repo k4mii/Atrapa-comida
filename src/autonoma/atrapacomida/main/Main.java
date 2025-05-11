@@ -1,5 +1,6 @@
 package autonoma.atrapacomida.main;
 
+import autonoma.atrapacomida.models.FoodField;
 import autonoma.atrapacomida.views.GameWindow;
 
 
@@ -11,13 +12,16 @@ import autonoma.atrapacomida.views.GameWindow;
  * @since 2025-05-02
  */
 public class Main {
-
-    public static void main(String[] args) {
-        /**
-         * Se crea la ventana inicial para comenzar con la ejecucion del juego
-         */
-        GameWindow ventana = new GameWindow();
-        ventana.setVisible(true);
-
+    public static void main(String[] args)
+    {
+        FoodField garden = new FoodField(0, 0, 500, 500);
+        
+        GameWindow window = new GameWindow();
+        window.setGarden(garden);
+        garden.setGraphicContainer(window);
+        window.setSize(500, 500);
+        window.setTitle("Come  o muere ");
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
     }
 }

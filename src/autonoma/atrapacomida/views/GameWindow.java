@@ -1,13 +1,20 @@
 package autonoma.atrapacomida.views;
 
+import autonoma.atrapacomida.models.FoodField;
+import gamebase.elements.GraphicContainer;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author Kamii
  */
-public class GameWindow extends javax.swing.JFrame {
+public class GameWindow extends javax.swing.JFrame implements GraphicContainer {
+
+    private FoodField foodField;
 
     /**
      * Creates new form GameWindow
@@ -18,7 +25,7 @@ public class GameWindow extends javax.swing.JFrame {
         this.setSize(500, 500);
         this.setLocationRelativeTo(null);
         try {
-            this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/atrapacomida/images/hamburguer")).getImage());
+            this.setIconImage(new ImageIcon(getClass().getResource("/autonoma/atrapacomida/images/hamburguer.png")).getImage());
         } catch (Exception e) {
             System.out.println("imagen no encontrada");
         }
@@ -26,12 +33,17 @@ public class GameWindow extends javax.swing.JFrame {
 
     @Override
     public void paint(Graphics g) {
-        for (ElementoCaida comida : comidas) {
-            comida.dibujar(g);
+        super.paint(g); // Esto es importante para que se repinten correctamente los componentes
+
+        // Fondo color cielo azul claro
+        g.setColor(new Color(135, 206, 235));
+        g.fillRect(0, 0, getWidth(), getHeight());
+
+        // Pintar el FoodField encima del fondo
+        if (foodField != null) {
+            foodField.paint(g);
         }
-        for (ElementoCaida veneno : venenos) {
-            veneno.dibujar(g);
-        }
+
     }
 
     /**
@@ -44,6 +56,16 @@ public class GameWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -59,10 +81,38 @@ public class GameWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_Q) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_formKeyPressed
 
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+
+    }//GEN-LAST:event_formMouseClicked
+    public void setGarden(FoodField foodField) {
+        this.foodField = foodField;
+    }
+
+    /**
+     * Refresca la interfaz gráfica de la ventana del juego.
+     */
+    @Override
+    public void refresh() {
+        this.repaint();
+    }
+
+    /**
+     * Este método devuelve el rectángulo que representa los límites de la
+     * ventana del juego (la posición y el tamaño de la ventana).
+     *
+     * @return
+     */
+    @Override
+    public Rectangle getBoundaries() {
+        return this.getBounds();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+
 }

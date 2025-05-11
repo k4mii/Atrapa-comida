@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
  *
  * @author Kamii
  */
-public class Food extends ElementType{
+public class Food extends ElementType {
 
     private Image hamburguerImage;
 
@@ -24,14 +24,13 @@ public class Food extends ElementType{
 
     @Override
     public void delete(FoodField foodField) {
-        foodField.eliminarPulga(this);
-        foodField.getPlayer().setPuntaje(
-                foodField.getPlayer().getPuntaje() + 1
-        );
+        foodField.getPlayer().aumentarPuntaje(1);
+        foodField.eliminarElement(this);
     }
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(hamburguerImage, x, y, null);
+        g.drawImage(hamburguerImage, x, y, width, height, null);
     }
+
 }

@@ -2,32 +2,81 @@ package autonoma.atrapacomida.models;
 
 import autonoma.atrapacomida.views.GameWindow;
 
+
 /**
- *
- * @author Kamii
+ * @author Maria Camila Prada Cortes
+ * @version 1.0.0
+ * @since 2025-05-011
  */
-    public class FoodSpawner implements Runnable{
+public class FoodSpawner implements Runnable {
+
     private FoodField foodField;
     private GameWindow gameWindow;
 
-    public FoodSpawner(FoodField foodField, GameWindow gameWindow) {
+    protected long delay;
+    private boolean running;
+    private boolean paused;
+    protected Thread thread;
+
+    public FoodSpawner(FoodField foodField) {
         this.foodField = foodField;
         this.gameWindow = gameWindow;
     }
 
     @Override
     public void run() {
-        while (true) {
-            for (ElementoCaida comida : comidas) {
-                comida.mover();
-            }
-            panel.repaint();
+        running = true;
+        while (running) {
             try {
-                Thread.sleep(30);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.sleep(1000);
+                if (!paused) {
+                    foodField.addFood();
+                }
+            } catch (InterruptedException ex) {
+
             }
         }
     }
-}
+    
+    
+    
+    public boolean isRunning() {
+        return running;
+    }
 
+    public void stop() {
+        this.running = false;
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void pause() {
+        this.paused = true;
+    }
+
+    public void unpause() {
+        this.paused = false;
+    }
+
+    public long getDelay() {
+        return delay;
+    }
+
+    public void setDelay(long delay) {
+        this.delay = delay;
+    }
+
+    /**
+     * Inicia la ejecución del hilo asociado a esta clase. Este método crea un
+     * nuevo hilo y lo inicia, ejecutando la lógica definida en el método Este
+     * hilo permite que el proceso se ejecute de manera concurrente sin bloquear
+     * el hilo principal de la aplicación, permitiendo realizar tareas en
+     * segundo plano o en paralelo.
+     */
+    public void start() {
+        thread = new Thread(this);
+        thread.start();
+    }
+}
