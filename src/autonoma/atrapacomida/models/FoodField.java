@@ -5,6 +5,7 @@ import gamebase.elements.LectorArchivoTextoPlano;
 import gamebase.elements.Sprite;
 import gamebase.elements.SpriteContainer;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,16 +49,17 @@ public class FoodField extends SpriteContainer {
     public FoodField(int x, int y, int height, int width) {
         super(x, y, height, width);
         this.sprites = new ArrayList<>();
-        
+
         this.foodSpawner = new FoodSpawner(this);
         this.foodSpawner.start();
-        
+
         this.poisonSpawner = new PoisonSpawner(this);
         this.poisonSpawner.start();
     }
 
     public void setPlayer(Player player) {
         this.player = player;
+        System.out.println("Jugador asignado: " + player);
     }
 
     /**
@@ -113,11 +115,50 @@ public class FoodField extends SpriteContainer {
      * jugador en 1 punto por cada pulga eliminada. Si después de eliminar la
      * pulga ya no quedan más pulgas en el campo de batalla,
      *
-     * @param pulga
+     * @param ElementType
      */
     public void eliminarElement(ElementType element) {
         // Aumenta el puntaje del jugador por cada pulga eliminada
         sprites.remove(element);
+    }
+
+    public void update() {
+        for (Sprite sprite : sprites) {
+            if (sprite instanceof ElementType) {
+                ElementType element = (ElementType) sprite;
+                element.setY(element.getY() + element.getStep());
+
+                // Si se sale del campo, eliminarlo
+                if (element.getY() > height) {
+                    eliminarElement(element);
+                }
+            }
+        }
+        refresh();
+    }
+
+    /**
+     * La clase Point representa un punto en 2D con coordenadas x y y, y es la
+     * que estamos utilizando para recibir las coordenadas del clic del ratón.
+     * En el código que te proporcioné, evt.getPoint() devuelve un objeto de
+     * tipo Point, y lo estamos pasando correctamente al método handleClick.
+     */
+    public void handleClick(Point clickPoint) {
+        for (Sprite sprite : sprites) {
+            if (sprite instanceof ElementType) {
+                ElementType element = (ElementType) sprite;
+                if (element.checkCollision(clickPoint)) {
+                    System.out.println("Clic detectado en el elemento: " + element);
+                    if (element instanceof Food) {
+                        ((Food) element).delete(this);
+                    } else if (element instanceof Posion) {
+                        System.out.println("Clic detectado en el Posion, llamando a delete.");
+                        ((Posion) element).delete(this);  // Asegúrate de que esto se llama
+                    }
+                    break;  // Salir del bucle una vez que el clic ha sido procesado
+                }
+            }
+        }
     }
 
     @Override

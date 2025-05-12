@@ -31,21 +31,6 @@ public class GameWindow extends javax.swing.JFrame implements GraphicContainer {
         }
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g); // Esto es importante para que se repinten correctamente los componentes
-
-        // Fondo color cielo azul claro
-        g.setColor(new Color(135, 206, 235));
-        g.fillRect(0, 0, getWidth(), getHeight());
-
-        // Pintar el FoodField encima del fondo
-        if (foodField != null) {
-            foodField.paint(g);
-        }
-
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,10 +73,34 @@ public class GameWindow extends javax.swing.JFrame implements GraphicContainer {
     }//GEN-LAST:event_formKeyPressed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-
+        System.out.println("¡Clic detectado!");
+        if (foodField != null) {
+            foodField.handleClick(evt.getPoint());
+            foodField.refresh();  // Asegúrate de llamar a refresh después de manejar el clic
+            repaint();  // Refresca la pantalla
+        }
     }//GEN-LAST:event_formMouseClicked
-    public void setGarden(FoodField foodField) {
+    public void setFoodField(FoodField foodField) {
         this.foodField = foodField;
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g); // Esto es importante para que se repinten correctamente los componentes
+        System.out.println("Repintando la ventana...");
+        // Fondo color cielo azul claro
+        g.setColor(new Color(135, 206, 235));
+        g.fillRect(0, 0, getWidth(), getHeight());
+
+        // Pintar el FoodField encima del fondo
+        if (foodField != null) {
+            foodField.paint(g);
+            if (foodField.getPlayer() != null) {
+                g.setColor(Color.BLACK);
+                g.drawString("Puntaje: " + foodField.getPlayer().getPuntaje(), 20, 50);
+            }
+        }
+
     }
 
     /**

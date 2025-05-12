@@ -35,8 +35,9 @@ public class Player {
         this.puntaje = puntaje;
     }
 
-    public void aumentarPuntaje(int puntaje) {
-        this.puntaje += puntaje;
+    public void aumentarPuntaje(int score) {
+        this.puntaje += score;
+        System.out.println("Puntaje actualizado: " + puntaje);
     }
 
 

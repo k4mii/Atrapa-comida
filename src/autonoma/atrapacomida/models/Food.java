@@ -15,7 +15,7 @@ public class Food extends ElementType {
     public Food(int x, int y, int height, int width) {
         super(x, y, height, width);
         hamburguerImage = new ImageIcon(getClass().getResource("/autonoma/atrapacomida/images/hamburguer.png")).getImage();
-
+        setStep(2);
     }
 
     public void registerHit(FoodField foodField) {
@@ -24,6 +24,7 @@ public class Food extends ElementType {
 
     @Override
     public void delete(FoodField foodField) {
+        System.out.println("Food clickeado, aumentando puntaje");
         foodField.getPlayer().aumentarPuntaje(1);
         foodField.eliminarElement(this);
     }

@@ -2,7 +2,6 @@ package autonoma.atrapacomida.models;
 
 import autonoma.atrapacomida.views.GameWindow;
 
-
 /**
  * @author Maria Camila Prada Cortes
  * @version 1.0.0
@@ -20,7 +19,8 @@ public class FoodSpawner implements Runnable {
 
     public FoodSpawner(FoodField foodField) {
         this.foodField = foodField;
-        this.gameWindow = gameWindow;
+        running = false;
+        paused = false;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class FoodSpawner implements Runnable {
         running = true;
         while (running) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(3000);
                 if (!paused) {
                     foodField.addFood();
                 }
@@ -37,9 +37,7 @@ public class FoodSpawner implements Runnable {
             }
         }
     }
-    
-    
-    
+
     public boolean isRunning() {
         return running;
     }

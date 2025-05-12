@@ -27,12 +27,12 @@ public abstract class ElementType extends SpriteMobile {
 
     public static ElementType create(Class type, int width, int height, List<Sprite> sprites)
             throws InstantiationException, IllegalAccessException {
-        int x, y;
+        int x;
+        int y = 0;
         boolean overlaps;
 
         do {
             x = (int) (Math.random() * (width - ElementType.WIDTH));
-            y = (int) (Math.random() * (height - ElementType.HEIGHT));
             overlaps = false;
 
             Rectangle newFleaRect = new Rectangle(x, y, ElementType.WIDTH, ElementType.HEIGHT);

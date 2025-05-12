@@ -7,7 +7,7 @@ import autonoma.atrapacomida.views.GameWindow;
  * @version 1.0.0
  * @since 2025-05-11
  */
-public class PoisonSpawner implements Runnable{
+public class PoisonSpawner implements Runnable {
 
     private FoodField foodField;
     private GameWindow gameWindow;
@@ -19,7 +19,8 @@ public class PoisonSpawner implements Runnable{
 
     public PoisonSpawner(FoodField foodField) {
         this.foodField = foodField;
-        this.gameWindow = gameWindow;
+        running = false;
+        paused = false;
     }
 
     @Override
@@ -27,7 +28,7 @@ public class PoisonSpawner implements Runnable{
         running = true;
         while (running) {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(3000);
                 if (!paused) {
                     foodField.addPosion();
                 }
@@ -36,9 +37,7 @@ public class PoisonSpawner implements Runnable{
             }
         }
     }
-    
-    
-    
+
     public boolean isRunning() {
         return running;
     }
@@ -77,5 +76,5 @@ public class PoisonSpawner implements Runnable{
     public void start() {
         thread = new Thread(this);
         thread.start();
-    }    
+    }
 }
