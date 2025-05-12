@@ -153,9 +153,9 @@ public class FoodField extends SpriteContainer {
                         ((Food) element).delete(this);
                     } else if (element instanceof Posion) {
                         System.out.println("Clic detectado en el Posion, llamando a delete.");
-                        ((Posion) element).delete(this);  // Asegúrate de que esto se llama
+                        ((Posion) element).delete(this); 
                     }
-                    break;  // Salir del bucle una vez que el clic ha sido procesado
+                    break; 
                 }
             }
         }

@@ -30,6 +30,7 @@ public class PoisonSpawner implements Runnable {
             try {
                 Thread.sleep(3000);
                 if (!paused) {
+                    System.out.println("Intentando agregar Posion...");
                     foodField.addPosion();
                 }
             } catch (InterruptedException ex) {
